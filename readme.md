@@ -7,7 +7,9 @@
 - $ `node server.js` - default response is without username and icon_url.
 
     :: If wanted to set the username in the response, run the server like `WITH_USERNAME=true node server.js`
+    
     :: If wanted to set the icon_url in the response, run the server like `WITH_ICON_URL=true node server.js`
+    
     :: If wanted to set both username and icon_url in the response, run the server like `WITH_ICON_URL=true WITH_USERNAME=true node server.js`
 
     :: Server has started successfully when the console printed `Server running at: http://localhost:3000`
