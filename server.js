@@ -2,6 +2,9 @@
 
 const Hapi = require('hapi');
 
+const WITH_USERNAME = process.env.WITH_USERNAME;
+const WITH_ICON_URL = process.env.WITH_ICON_URL;
+
 const server = Hapi.server({
     port: 3000,
     host: 'localhost'
@@ -26,21 +29,29 @@ server.route({
             encodeURIComponent(request.params.hook) :
             'hook';
         const {payload} = request;
-        console.log(`Payload on /${hook}:`);
+        console.log(`\nIncoming payload on /${hook}:`);
         console.log(payload);
-        console.log(`Header on /${hook}:`);
+        console.log(`\nIncoming header on /${hook}:`);
         console.log(request.headers);
 
         const defaultPostType = postTypes[0];
         const defaultResponseType = responseTypes[0];
 
-        return {
-            text: `#### Outgoing Webhook Response\n - token: "${payload.token}"\n - trigger_word: "${payload.trigger_word}"\n - text: "${payload.text}"\n - channel_name: "${payload.channel_name}"\n - team_domain: "${payload.team_domain}"\n`,
-            username: `${payload.user_name}`,
-            icon_url: 'https://docs.mattermost.com/_images/icon-76x76.png',
+        const text = `#### Outgoing Webhook Response\n - token: "${payload.token}"\n - trigger_word: "${payload.trigger_word}"\n - text: "${payload.text}"\n - channel_name: "${payload.channel_name}"\n - team_domain: "${payload.team_domain}"\n`;
+        const username = WITH_USERNAME ? `${payload.user_name}` : '';
+        const iconUrl = WITH_ICON_URL ? 'https://docs.mattermost.com/_images/icon-76x76.png' : '';
+        const outGoingResponse = {
+            text,
+            username,
+            icon_url: iconUrl,
             type: defaultPostType,
             response_type: defaultResponseType
         };
+
+        console.log('\nOutgoing response: ');
+        console.log(outGoingResponse);
+
+        return outGoingResponse;
     }
 });
 

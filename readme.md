@@ -4,7 +4,11 @@
 - $ `git clone git@github.com:saturninoabril/hapi-server.git`
 - $ `cd hapi-server`
 - $ `npm install`
-- $ `node server.js`
+- $ `node server.js` - default response is without username and icon_url.
+
+    :: If wanted to set the username in the response, run the server like `WITH_USERNAME=true node server.js`
+    :: If wanted to set the icon_url in the response, run the server like `WITH_ICON_URL=true node server.js`
+    :: If wanted to set both username and icon_url in the response, run the server like `WITH_ICON_URL=true WITH_USERNAME=true node server.js`
 
     :: Server has started successfully when the console printed `Server running at: http://localhost:3000`
 
@@ -21,11 +25,11 @@
     - `http://ad3cc10f.ngrok.io/hook`, `http://ad3cc10f.ngrok.io/anotherhook`, 
     - etc.
 
-4. Verify that the payload and/or headers are received by the hapi-server from Mattermost server.
-- observe the payload being printed in console everytime the webhook is received.
+4. Verify that the incoming payload & headers are received by the hapi-server from Mattermost server.
+- observe the payload being printed in console for every hook.
 - verify the payload you're expecting to receive.
 
-    :: Sample payload:
+    :: Sample incoming payload:
 ```
 { 
     token: 'y41bbi8p5bfbmgioiajeyx4g7e',
@@ -43,7 +47,7 @@
 }
 ```
 
-    :: Sample headers:
+    :: Sample incoming headers:
 ```
 { 
     host: 'ad3cc10f.ngrok.io',
@@ -53,6 +57,21 @@
     'content-type': 'application/json',
     'accept-encoding': 'gzip',
     'x-forwarded-for': '54.188.242.58' 
+}
+```
+
+5. Verify that the outgoing response from hapi-server to Mattermost server.
+- observe the outgoing response being printed in console for every hook.
+- verify the payload you're expecting to receive.
+
+    :: Sample outgoing response:
+```
+{ 
+    text: '#### Outgoing Webhook Response\n - token: "y41bbi8p5bfbmgioiajeyx4g7e"\n - trigger_word: "another"\n - text: "another"\n - channel_name: "outgoing"\n - team_domain: "ad-1"\n',
+    username: '',
+    icon_url: 'https://docs.mattermost.com/_images/icon-76x76.png',
+    type: '',
+    response_type: 'in_channel' 
 }
 ```
 
