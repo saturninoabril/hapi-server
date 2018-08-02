@@ -62,9 +62,8 @@
 }
 ```
 
-5. Verify that the outgoing response from hapi-server to Mattermost server.
+5. Verify the outgoing response from hapi-server to Mattermost server.
 - observe the outgoing response being printed in console for every hook.
-- verify the payload you're expecting to receive.
 
     :: Sample outgoing response:
 ```
