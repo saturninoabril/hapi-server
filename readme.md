@@ -1,7 +1,7 @@
 
 1.  In the command line, run the following command to start the server:
 
-- $ `git clone git@github.com:saturninoabril/hapi-server.git`
+- $ `git clone git@github.com:saturninoabril/hapi-server.git` or `git clone https://github.com/saturninoabril/hapi-server`
 - $ `cd hapi-server`
 - $ `npm install`
 - $ `node server.js` - default response is without username and icon_url.
